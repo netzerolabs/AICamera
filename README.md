@@ -147,4 +147,3 @@ MIT — xem [LICENSE](LICENSE). MediaPipe, OpenCV, YOLO và các model bên th�
 
 Đây là phần mềm nghiên cứu/prototype, không phải thiết bị y tế được chứng nhận. Luôn có quy trình gọi người thật/cấp cứu, kiểm tra camera và kiểm thử với người giám sát trước khi dùng thực tế.  
 This is research/prototype software, not a certified medical device. Maintain a human/emergency escalation path and validate with a supervisor before real-world use.
-

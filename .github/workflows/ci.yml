@@ -1,0 +1,53 @@
+name: Core CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests / Kiểm thử
+        run: python -m unittest discover -s core/python -v
+      - name: Offline simulation / Mô phỏng ngoại tuyến
+        run: python core/python/demo_simulation.py --scenario fall
+
+  go-gateway:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+      - run: go test ./...
+        working-directory: core/go
+
+  cpp-edge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile C++17 core / Biên dịch lõi C++17
+        run: g++ -std=c++17 -Wall -Wextra -pedantic -Icore/cpp -c core/cpp/fall_detector.cpp
+
+  web-prototype:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: prototype/app/package-lock.json
+      - run: npm ci
+        working-directory: prototype/app
+      - run: npm run build
+        working-directory: prototype/app
