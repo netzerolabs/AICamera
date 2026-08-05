@@ -1,0 +1,295 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    /* SmartGuard Medical-Grade Design System */
+    --background: 0 0% 100%;
+    --foreground: 220 20% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
+
+    /* Trust Blue - Primary Action Color */
+    --primary: 214 100% 41%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Soft Gray - Secondary */
+    --secondary: 220 20% 97%;
+    --secondary-foreground: 220 20% 20%;
+
+    --muted: 220 20% 97%;
+    --muted-foreground: 220 10% 50%;
+
+    /* Accent - Light Blue */
+    --accent: 210 100% 95%;
+    --accent-foreground: 214 100% 41%;
+
+    /* Alert Orange - Urgent State */
+    --destructive: 24 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 214 100% 41%;
+    --radius: 1rem;
+
+    /* Custom SmartGuard Colors */
+    --sg-trust-blue: #0056D2;
+    --sg-alert-orange: #FF6B00;
+    --sg-soft-gray: #F5F7FA;
+    --sg-success-green: #10B981;
+    --sg-text-primary: #1A202C;
+    --sg-text-secondary: #718096;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+
+  /* ==========================================
+     RESPONSIVE APP CONTAINER
+     Mobile-first centered layout (max 480px)
+     ========================================== */
+  .sg-app-container {
+    @apply w-full mx-auto;
+    max-width: 480px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    position: relative;
+  }
+
+  /* On desktop, add a subtle phone-frame effect */
+  @media (min-width: 520px) {
+    .sg-app-container {
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+      border-left: 1px solid #E2E8F0;
+      border-right: 1px solid #E2E8F0;
+    }
+  }
+
+  /* ==========================================
+     CARD SYSTEM
+     ========================================== */
+  .sg-card {
+    @apply bg-white rounded-2xl border border-gray-100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  }
+
+  /* ==========================================
+     CAMERA CONTAINER
+     Proper aspect ratio for camera feed
+     ========================================== */
+  .sg-camera-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #000;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  .sg-camera-container video,
+  .sg-camera-container canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ==========================================
+     BUTTONS — Elderly-friendly large targets
+     ========================================== */
+  .sg-button-primary {
+    @apply bg-[#0056D2] text-white rounded-full font-semibold text-lg transition-all duration-200 hover:bg-[#004bb8] active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed;
+    min-height: 56px;
+    padding: 0 2rem;
+    box-shadow: 0 4px 14px rgba(0, 86, 210, 0.25);
+  }
+
+  .sg-button-primary:hover {
+    box-shadow: 0 6px 20px rgba(0, 86, 210, 0.35);
+  }
+
+  .sg-button-secondary {
+    @apply bg-[#F5F7FA] text-[#1A202C] rounded-full font-semibold text-lg transition-all duration-200 hover:bg-[#E8ECF0] active:scale-[0.97];
+    min-height: 56px;
+    padding: 0 2rem;
+  }
+
+  .sg-button-alert {
+    @apply bg-[#FF6B00] text-white rounded-full font-semibold text-lg transition-all duration-200 hover:bg-[#E66000] animate-pulse;
+    min-height: 56px;
+    padding: 0 2rem;
+    box-shadow: 0 4px 14px rgba(255, 107, 0, 0.3);
+  }
+
+  /* ==========================================
+     STATUS INDICATORS
+     ========================================== */
+  .sg-pulse-active {
+    @apply relative;
+  }
+
+  .sg-pulse-active::before {
+    content: '';
+    @apply absolute inset-0 rounded-full bg-[#10B981] opacity-30 animate-ping;
+  }
+
+  .sg-privacy-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 bg-[#F0F9FF] text-[#0056D2] rounded-full text-sm font-medium;
+  }
+
+  /* ==========================================
+     TEXT SIZES — Elderly readability
+     ========================================== */
+  .sg-text-large {
+    @apply text-xl leading-relaxed;
+  }
+
+  .sg-text-xlarge {
+    @apply text-2xl leading-relaxed font-semibold;
+  }
+
+  .sg-status-monitoring {
+    @apply flex items-center gap-3 px-6 py-3 bg-[#ECFDF5] text-[#059669] rounded-full font-semibold text-lg;
+  }
+
+  .sg-status-alert {
+    @apply flex items-center gap-3 px-6 py-3 bg-[#FFF7ED] text-[#EA580C] rounded-full font-semibold text-lg animate-pulse;
+  }
+
+  /* ==========================================
+     SCROLLABLE SECTIONS
+     ========================================== */
+  .sg-scroll-area {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E0 transparent;
+  }
+}
+
+@layer utilities {
+
+  /* Custom animations */
+  @keyframes sg-pulse-ring {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  .animate-sg-pulse {
+    animation: sg-pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes sg-shake {
+
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(5px);
+    }
+  }
+
+  .animate-sg-shake {
+    animation: sg-shake 0.5s ease-in-out;
+  }
+
+  @keyframes sg-countdown {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.1);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-sg-countdown {
+    animation: sg-countdown 1s ease-in-out infinite;
+  }
+
+  /* Gradient backgrounds */
+  .bg-sg-gradient {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F5F7FA 100%);
+  }
+
+  /* Safe area padding for mobile */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 16px);
+  }
+}
+
+/* ==========================================
+   SCROLLBAR STYLING
+   ========================================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E0;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A0AEC0;
+}
